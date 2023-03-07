@@ -1,0 +1,13 @@
+<launch>
+
+  <include file="$(find-pkg-share dummy_diag_publisher)/launch/dummy_diag_publisher_node.launch.xml">
+    <arg name="diag_name" value="imu_connection"/>
+    <arg name="update_rate" value="1.0"/>
+  </include>
+
+  <include file="$(find-pkg-share dummy_diag_publisher)/launch/dummy_diag_publisher_node.launch.xml">
+    <arg name="diag_name" value="imu_bit_error"/>
+    <arg name="update_rate" value="1.0"/>
+  </include>
+
+</launch>

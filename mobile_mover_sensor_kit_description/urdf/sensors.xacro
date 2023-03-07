@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<robot name="vehicle" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:arg name="config_dir" default="$(find mobile_mover_sensor_kit_description)/config"/>
+  <xacro:property name="calibration" value="${xacro.load_yaml('$(arg config_dir)/sensors_calibration.yaml')}"/>
+
+  <!-- embedded sensors -->
+  <xacro:include filename="$(find pandar_description)/urdf/pandar_qt.xacro"/>
+  <xacro:include filename="$(find camera_description)/urdf/camera.xacro"/>
+  <xacro:include filename="$(find imu_description)/urdf/imu.xacro"/>
+    
+  <xacro:PandarQT
+      name="pandar_qt_front"
+      parent="base_link"
+      x="${calibration['pandar_qt_front_base_link']['x']}"
+      y="${calibration['pandar_qt_front_base_link']['y']}"
+      z="${calibration['pandar_qt_front_base_link']['z']}"
+      roll="${calibration['pandar_qt_front_base_link']['roll']}"
+      pitch="${calibration['pandar_qt_front_base_link']['pitch']}"
+      yaw="${calibration['pandar_qt_front_base_link']['yaw']}"
+  />
+    
+  <xacro:PandarQT
+      name="pandar_qt_back"
+      parent="base_link"
+      x="${calibration['pandar_qt_back_base_link']['x']}"
+      y="${calibration['pandar_qt_back_base_link']['y']}"
+      z="${calibration['pandar_qt_back_base_link']['z']}"
+      roll="${calibration['pandar_qt_back_base_link']['roll']}"
+      pitch="${calibration['pandar_qt_back_base_link']['pitch']}"
+      yaw="${calibration['pandar_qt_back_base_link']['yaw']}"
+  />
+
+  <xacro:imu_macro
+      suffix="imu"
+      parent="base_link"
+      namespace=""
+      x="${calibration['imu_base_link']['x']}"
+      y="${calibration['imu_base_link']['y']}"
+      z="${calibration['imu_base_link']['z']}"
+      roll="${calibration['imu_base_link']['roll']}"
+      pitch="${calibration['imu_base_link']['pitch']}"
+      yaw="${calibration['imu_base_link']['yaw']}"
+      fps="50" />
+          
+  <xacro:camera_macro
+      suffix="camera"
+      parent="base_link"
+      namespace=""
+      x="${calibration['camera_base_link']['x']}"
+      y="${calibration['camera_base_link']['y']}"
+      z="${calibration['camera_base_link']['z']}"
+      roll="${calibration['camera_base_link']['roll']}"
+      pitch="${calibration['camera_base_link']['pitch']}"
+      yaw="${calibration['camera_base_link']['yaw']}"
+      fps="30"
+      width="640"
+      height="480"
+      fov="1.3"
+  />
+
+
+</robot>
